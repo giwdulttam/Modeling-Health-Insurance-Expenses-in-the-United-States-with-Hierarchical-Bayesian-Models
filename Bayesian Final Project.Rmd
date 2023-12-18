@@ -1,0 +1,1436 @@
+---
+title: "Bayesian Final Project"
+output: html_document
+date: "2023-11-07"
+---
+
+```{r}
+
+
+setwd("~/Desktop")
+
+Swedish <- read.csv("/Users/matthewludwig/Desktop/SwedishMotorInsurance.csv", header=TRUE, as.is=TRUE, sep=',')
+
+head(Swedish) 
+summary(Swedish)
+Swedish$Zone <- as.factor(Swedish$Zone)
+
+
+class(Swedish)
+```
+
+# Split Data into 7 based on Geographic Zone:
+
+```{r}
+
+Zone1 <- Swedish[Swedish$Zone==1, ]
+Zone2 <- Swedish[Swedish$Zone==2, ]
+Zone3 <- Swedish[Swedish$Zone==3, ]
+Zone4 <- Swedish[Swedish$Zone==4, ]
+Zone5 <- Swedish[Swedish$Zone==5, ]
+Zone6 <- Swedish[Swedish$Zone==6, ]
+Zone7 <- Swedish[Swedish$Zone==7, ]
+```
+
+# Summary Statistics:
+
+# Zone 1:
+
+```{r}
+
+par(mfrow = c(2, 3))  
+
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone1, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone1, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone1, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone1, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone1, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone1, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone1)
+```
+
+# Zone 2:
+
+```{r}
+
+par(mfrow = c(2, 3))  
+
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone2, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone2, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone2, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone2, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone2, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone2, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone2)
+
+```
+
+# Zone 3:
+
+```{r}
+
+par(mfrow = c(2, 3))  
+
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone3, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone3, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone3, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone3, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone3, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone3, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone3)
+```
+
+# Zone 4:
+
+```{r}
+
+par(mfrow = c(2, 3))  # 2 rows, 3 columns
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone4, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone4, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone4, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone4, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone4, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone4, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone4)
+```
+
+# Zone 5:
+
+```{r}
+
+par(mfrow = c(2, 3))  # 2 rows, 3 columns
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone5, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone5, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone5, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone5, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone5, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone5, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone5)
+```
+
+# Zone 6:
+
+```{r}
+
+par(mfrow = c(2, 3))  # 2 rows, 3 columns
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone6, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone6, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone6, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone6, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone6, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone6, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone6)
+```
+
+# Zone 7:
+
+```{r}
+
+par(mfrow = c(2, 3))  # 2 rows, 3 columns
+
+boxplot(Claims/Insured ~ Kilometres, data=Zone7, xlab="Distance Driven",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Bonus, data=Zone7, xlab="Accident Free Years",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+boxplot(Claims/Insured ~ Make, data=Zone7, xlab="Auto Make",
+        ylab="Average Claim Number", ylim = c(0, 0.6))
+
+
+boxplot(Payment ~ Kilometres, data=Zone7, xlab="Distance Driven",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Bonus, data=Zone7, xlab="Accident Free Years",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+boxplot(Payment ~ Make, data=Zone7, xlab="Auto Make",
+        ylab="Average Claim Severity", ylim = c(0, 1000000))
+
+summary(Zone7)
+```
+
+# Histograms of Claim Frequencies in Zones
+
+```{r}
+
+options(scipen = 999)
+par(mfrow=c(2, 2)) 
+
+
+
+
+hist(Zone1$Claims, main = "Claim Frequenices in Zone 1", xlab = "Number of Claims", col = "lightcoral", border = "black", breaks = 500, xlim = c(0,100))
+
+
+hist(Zone2$Claims, main = "Claim Frequencies in Zone 2", xlab = "Number of Claims", col = "lightcoral", border = "black", breaks = 500, xlim = c(0,100))
+
+hist(Zone3$Claims, breaks = 500, main = "Claim Frequencies in Zone 3", xlab = "Number of Claims", col = "skyblue", border = "black", xlim = c(0,150))
+
+hist(Zone4$Claims, main = "Claim Frequencies in Zone 4", xlab = "Number of Claims", col = "lightgreen", border = "black", breaks = 500, xlim = c(0,100))
+
+hist(Zone5$Claims, main = "Claim Frequencies in Zone 5", xlab = "Number of Claims", col = "lightpink", border = "black", breaks = 500, xlim = c(0,100))
+
+hist(Zone6$Claims, main = "Claim Frequencies in Zone 6", xlab = "Number of Claims", col = "lightcoral", border = "black", breaks = 500, xlim = c(0,100))
+
+hist(Zone7$Claims, main = "Claim Frequencies in Zone 7", xlab = "Number of Claims", col = "lightcoral", border = "black", breaks = 500, xlim = c(0,100))
+
+
+```
+
+# Histograms of Claim Severity in Zones
+
+```{r}
+options(scipen = 999)
+par(mfrow=c(2, 2)) 
+
+
+
+
+hist(Zone1$Payment, main = "Zone 1 Severity", xlab = "Severity", col = "lightcoral", border = "black", breaks = 200, xlim = c(0,1000000))
+
+
+hist(Zone2$Payment, main = "Zone 2 Severity", xlab = "Severity", col = "lightcoral", border = "black", breaks = 200, xlim = c(0,1000000))
+
+hist(Zone3$Payment, breaks = 200, main = "Zone 3 Severity", xlab = "Severity", col = "skyblue", border = "black", xlim = c(0,1000000))
+
+hist(Zone4$Payment, main = "Zone 4 Severity", xlab = "Severity", col = "lightgreen", border = "black", breaks = 200, xlim = c(0,1000000))
+
+hist(Zone5$Payment, main = "Zone 5 Severity", xlab = "Severity", col = "lightpink", border = "black", breaks = 200, xlim = c(0,1000000))
+
+hist(Zone6$Payment, main = "Zone 6 Severity", xlab = "Severity", col = "lightcoral", border = "black", breaks = 200, xlim = c(0,1000000))
+
+hist(Zone7$Payment, main = "Zone 7 Severity", xlab = "Severity", col = "lightcoral", border = "black", breaks = 200, xlim = c(0,1000000))
+
+
+
+
+```
+
+\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~
+
+# Claim Frequency Poisson Hierarchical Model:
+
+```{r}
+
+
+#Poisson-gamma hierarchical model
+#rate parameter for Poisson distribution of claim frequency drawn from gamma distribution
+#Gamma distribution
+
+
+#Stan code used to fit and find parameters for the hierarchical model:
+
+library(rstan)
+
+stan_model_code <- '
+
+data {
+  int<lower=0> N1; //# observations in Zone 1
+  int<lower=0> N2; 
+  int<lower=0> N3; 
+  int<lower=0> N4; 
+  int<lower=0> N5; 
+  int<lower=0> N6; 
+  int<lower=0> N7; 
+  
+  int<lower=0> y1[N1]; //frequencies in Zone 1
+  int<lower=0> y2[N2]; 
+  int<lower=0> y3[N3]; 
+  int<lower=0> y4[N4]; 
+  int<lower=0> y5[N5]; 
+  int<lower=0> y6[N6]; 
+  int<lower=0> y7[N7]; 
+}
+
+
+
+parameters {
+  real<lower=0> alpha; //shape for gamma distribution
+  real<lower=0> beta;  //rate for gamma distribution
+  
+  real<lower=0> lambda1; //poisson rate parameter for Zone 1
+  real<lower=0> lambda2; // 
+  real<lower=0> lambda3; 
+  real<lower=0> lambda4; 
+  real<lower=0> lambda5; 
+  real<lower=0> lambda6; 
+  real<lower=0> lambda7; 
+}
+
+
+
+
+model {
+
+  //priors
+  alpha ~ gamma(1, .01); // prior for alpha
+  beta ~ gamma(1,.01);  // prior for beta
+  
+  
+  
+  //hierarchical model
+  lambda1 ~ gamma(alpha, beta);
+  lambda2 ~ gamma(alpha, beta);
+  lambda3 ~ gamma(alpha, beta);
+  lambda4 ~ gamma(alpha, beta);
+  lambda5 ~ gamma(alpha, beta);
+  lambda6 ~ gamma(alpha, beta);
+  lambda7 ~ gamma(alpha, beta);
+  
+  
+  
+  //likelihoods
+  y1 ~ poisson(lambda1);
+  y2 ~ poisson(lambda2);
+  y3 ~ poisson(lambda3);
+  y4 ~ poisson(lambda4);
+  y5 ~ poisson(lambda5);
+  y6 ~ poisson(lambda6);
+  y7 ~ poisson(lambda7);
+}
+
+
+generated quantities {
+  int<lower=0> y_rep1[N1];
+  int<lower=0> y_rep2[N2];
+  int<lower=0> y_rep3[N3];
+  int<lower=0> y_rep4[N4];
+  int<lower=0> y_rep5[N5];
+  int<lower=0> y_rep6[N6];
+  int<lower=0> y_rep7[N7];
+  
+  for (i in 1:N1) y_rep1[i] = poisson_rng(lambda1);
+  for (i in 1:N2) y_rep2[i] = poisson_rng(lambda2);
+  for (i in 1:N3) y_rep3[i] = poisson_rng(lambda3);
+  for (i in 1:N4) y_rep4[i] = poisson_rng(lambda4);
+  for (i in 1:N5) y_rep5[i] = poisson_rng(lambda5);
+  for (i in 1:N6) y_rep6[i] = poisson_rng(lambda6);
+  for (i in 1:N7) y_rep7[i] = poisson_rng(lambda7);
+}
+
+'
+
+Frequencies1 <- Zone1$Claims
+Frequencies2 <- Zone2$Claims
+Frequencies3 <- Zone3$Claims
+Frequencies4 <- Zone4$Claims
+Frequencies5 <- Zone5$Claims
+Frequencies6 <- Zone6$Claims
+Frequencies7 <- Zone7$Claims
+
+
+
+# Compile the Stan model
+stan_model <- stan_model(model_code = stan_model_code)
+
+data_list <- list(
+  N1 = length(Frequencies1),
+  y1 = Frequencies1,
+  N2 = length(Frequencies2),
+  y2 = Frequencies2,
+  N3 = length(Frequencies3),
+  y3 = Frequencies3,
+  N4 = length(Frequencies4),
+  y4 = Frequencies4,
+  N5 = length(Frequencies5),
+  y5 = Frequencies5,
+  N6 = length(Frequencies6),
+  y6 = Frequencies6,
+  N7 = length(Frequencies7),
+  y7 = Frequencies7
+)
+
+stan_fit <- sampling(stan_model, data = data_list, chains = 4, iter = 2000)
+print(stan_fit)
+
+```
+
+Fit model and evaluate:
+
+```{r}
+
+library(rstan)
+
+plot(stan_fit)
+traceplot(stan_fit)
+summary(stan_fit)
+
+
+library(bayesplot)
+autocorrelation_plot <- mcmc_acf(stan_fit)
+#autocorrelation_plot
+```
+
+# Posterior Predictive Check:
+
+```{r}
+
+library(bayesplot)
+
+# Extract simulated data from the stan_fit object
+yrep1 <- as.array(stan_fit, "y_rep1")
+yrep2 <- as.array(stan_fit, "y_rep2")
+yrep3 <- as.array(stan_fit, "y_rep3")
+yrep4 <- as.array(stan_fit, "y_rep4")
+yrep5 <- as.array(stan_fit, "y_rep5")
+yrep6 <- as.array(stan_fit, "y_rep6")
+yrep7 <- as.array(stan_fit, "y_rep7")
+
+Frequencies1
+Frequencies2
+Frequencies3
+Frequencies4
+Frequencies5
+Frequencies6
+Frequencies7
+
+yrep1fixed <- yrep1[1:6, 1,]
+ppc_hist(Frequencies1, yrep1fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies1, yrep1fixed, binwidth = 50)
+
+yrep1fixed <- yrep1[1:500, 1,]
+ppc_stat(Frequencies1,yrep1fixed, stat='min')
+ppc_stat(Frequencies1,yrep1fixed, stat='max')
+ppc_stat(Frequencies1,yrep1fixed, stat='min')
+ppc_stat(Frequencies1,yrep1fixed)
+
+
+
+
+
+
+
+
+
+
+par(mfrow = c(3, 2))  # 3 rows, 2 columns
+
+# Plot for yrep2
+yrep2fixed <- yrep2[1:6, 1,]
+ppc_hist(Frequencies2, yrep2fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies2, yrep2fixed, binwidth = 50)
+
+# Plot for yrep3
+yrep3fixed <- yrep3[1:6, 1,]
+ppc_hist(Frequencies3, yrep3fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies3, yrep3fixed, binwidth = 50)
+
+# Plot for yrep4
+yrep4fixed <- yrep4[1:6, 1,]
+ppc_hist(Frequencies4, yrep4fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies4, yrep4fixed, binwidth = 50)
+
+# Plot for yrep5
+yrep5fixed <- yrep5[1:6, 1,]
+ppc_hist(Frequencies5, yrep5fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies5, yrep5fixed, binwidth = 50)
+
+# Plot for yrep6
+yrep6fixed <- yrep6[1:6, 1,]
+ppc_hist(Frequencies6, yrep6fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies6, yrep6fixed, binwidth = 50)
+
+# Plot for yrep7
+yrep7fixed <- yrep7[1:6, 1,]
+ppc_hist(Frequencies7, yrep7fixed, binwidth = 5)
+ppc_dens_overlay(Frequencies7, yrep7fixed, binwidth = 5)
+
+# Reset the layout to a single plot
+par(mfrow = c(1, 1))
+
+
+```
+
+# Calculate MSE:
+
+```{r}
+
+# Define a function to calculate MSE
+calculate_mse <- function(observed, replicated) {
+  mean((replicated - observed)^2, na.rm = TRUE)
+}
+
+# Calculate MSE for each zone
+mse_zone1 <- calculate_mse(Frequencies1, yrep1fixed)
+mse_zone2 <- calculate_mse(Frequencies2, yrep2fixed)
+mse_zone3 <- calculate_mse(Frequencies3, yrep3fixed)
+mse_zone4 <- calculate_mse(Frequencies4, yrep4fixed)
+mse_zone5 <- calculate_mse(Frequencies5, yrep5fixed)
+mse_zone6 <- calculate_mse(Frequencies6, yrep6fixed)
+mse_zone7 <- calculate_mse(Frequencies7, yrep7fixed)
+
+# Print MSE for each zone
+cat("MSE Zone 1:", mse_zone1, "\n")
+cat("MSE Zone 2:", mse_zone2, "\n")
+cat("MSE Zone 3:", mse_zone3, "\n")
+cat("MSE Zone 4:", mse_zone4, "\n")
+cat("MSE Zone 5:", mse_zone5, "\n")
+cat("MSE Zone 6:", mse_zone6, "\n")
+cat("MSE Zone 7:", mse_zone7, "\n")
+
+
+
+
+# Create a bar plot with zone labels
+barplot(mse_values, names.arg = zone_labels, col = "skyblue", main = "MSE for Each Zone",
+        ylab = "Mean Squared Error (MSE)", ylim = range(0, mse_values * 1.2))
+
+
+
+```
+
+# Model the Frequency of Claims with a Hierarchical Poisson Regression Model:
+
+```{r}
+
+#install.packages("rstan")
+library(rstan)
+
+
+
+
+stan_code_2 <- '
+
+data {
+
+  int<lower=1> K;                 // Number of predictors
+
+  int<lower=0> N1; //# observations in Zone 1
+  int<lower=0> N2; 
+  int<lower=0> N3; 
+  int<lower=0> N4; 
+  int<lower=0> N5; 
+  int<lower=0> N6; 
+  int<lower=0> N7; 
+  
+  int<lower=0> y1[N1]; //frequencies in Zone 1
+  int<lower=0> y2[N2]; 
+  int<lower=0> y3[N3]; 
+  int<lower=0> y4[N4]; 
+  int<lower=0> y5[N5]; 
+  int<lower=0> y6[N6]; 
+  int<lower=0> y7[N7]; 
+  
+  
+  int<lower=0> Kilometres1[N1]; //Kilometers in Zone 1
+  int<lower=0> Kilometres2[N2];
+  int<lower=0> Kilometres3[N3];
+  int<lower=0> Kilometres4[N4];
+  int<lower=0> Kilometres5[N5];
+  int<lower=0> Kilometres6[N6];
+  int<lower=0> Kilometres7[N7];
+  
+  int<lower=1, upper=7> Zones1[N1];   // Geographical zones
+  int<lower=1, upper=7> Zones2[N2];
+  int<lower=1, upper=7> Zones3[N3];
+  int<lower=1, upper=7> Zones4[N4];
+  int<lower=1, upper=7> Zones5[N5];
+  int<lower=1, upper=7> Zones6[N6];
+  int<lower=1, upper=7> Zones7[N7];
+  
+  int<lower=1> Bonus1[N1]; // No claim bonus
+  int<lower=1> Bonus2[N2];
+  int<lower=1> Bonus3[N3]; 
+  int<lower=1> Bonus4[N4]; 
+  int<lower=1> Bonus5[N5]; 
+  int<lower=1> Bonus6[N6]; 
+  int<lower=1> Bonus7[N7]; 
+  
+  int<lower=1, upper=9> Make1[N1];   // Make of the vehicle
+  int<lower=1, upper=9> Make2[N2];
+  int<lower=1, upper=9> Make3[N3];
+  int<lower=1, upper=9> Make4[N4];
+  int<lower=1, upper=9> Make5[N5];
+  int<lower=1, upper=9> Make6[N6];
+  int<lower=1, upper=9> Make7[N7];
+  
+  real<lower=0> Insured1[N1];        // Insured
+  real<lower=0> Insured2[N2];
+  real<lower=0> Insured3[N3];
+  real<lower=0> Insured4[N4];
+  real<lower=0> Insured5[N5];
+  real<lower=0> Insured6[N6];
+  real<lower=0> Insured7[N7];
+  
+}
+
+
+parameters {
+
+  real alpha1;               // Intercept
+  real beta1[K];             // Coefficients for predictors
+  real<lower=0> gamma1;   // Random effects for Zone
+  
+  real alpha2;               // Intercept
+  real beta2[K];             // Coefficients for predictors
+  real<lower=0> gamma2;   // Random effects for Zone
+
+  real alpha3;               // Intercept
+  real beta3[K];             // Coefficients for predictors
+  real<lower=0> gamma3;   // Random effects for Zone
+  
+  real alpha4;               // Intercept
+  real beta4[K];             // Coefficients for predictors
+  real<lower=0> gamma4;   // Random effects for Zone
+  
+  real alpha5;               // Intercept
+  real beta5[K];             // Coefficients for predictors
+  real<lower=0> gamma5;   // Random effects for Zone
+  
+  real alpha6;               // Intercept
+  real beta6[K];             // Coefficients for predictors
+  real<lower=0> gamma6;   // Random effects for Zone
+  
+  real alpha7;               // Intercept
+  real beta7[K];             // Coefficients for predictors
+  real<lower=0> gamma7;   // Random effects for Zone
+
+
+  //real<lower=0> lambda1; //poisson rate parameter for Zone 1
+  //real<lower=0> lambda2; // 
+  //real<lower=0> lambda3; 
+  //real<lower=0> lambda4; 
+  //real<lower=0> lambda5; 
+  //real<lower=0> lambda6; 
+  //real<lower=0> lambda7; 
+  
+}
+
+
+
+
+// beta[1] = Kilometres
+// beta[2] = Zone
+// beta[3] = Bonus
+// beta[4] = Make
+// beta[5] = Insured
+
+
+
+
+model {
+
+
+// priors
+
+  alpha1 ~ uniform(.001, 0.1);
+  beta1 ~ uniform(.001, 1);
+  gamma1 ~ uniform(.001, 0.1);
+
+  alpha2 ~ uniform(.001, 0.1);
+  beta2 ~ uniform(0.001, 1);
+  gamma2 ~ uniform(0.001, 1);
+
+  alpha3 ~ uniform(0.001, 0.1);
+  beta3 ~ uniform(0.001, 1);
+  gamma3 ~ uniform(0.001, 1);
+
+  alpha4 ~ uniform(0.001, 0.1);
+  beta4 ~ uniform(0.001, 0.01);
+  gamma4 ~ uniform(0.001, 1);
+
+  alpha5 ~ uniform(0.001, 0.1);
+  beta5 ~ uniform(0.001, 1);
+  gamma5 ~ uniform(0.00001, 0.0001);
+  
+  
+  
+  
+  // (lambdas should be between 0-100)
+  // linear predictors should be between 0 - 5
+  
+
+  // Likelihood for the main model
+for (i in 1:N1) {
+  real lambda1 = exp(alpha1 + beta1[1] * Kilometres1[i] + beta1[2] * Zones1[i] + beta1[3] * Bonus1[i] + beta1[4] * Make1[i] + beta1[5] * Insured1[i] + gamma1);
+  y1[i] ~ poisson(lambda1);
+}
+
+for (i in 1:N2) {
+  real lambda2 = exp(alpha2 + beta2[1] * Kilometres2[i] + beta2[2] * Zones2[i] +
+                    beta2[3] * Bonus2[i] + beta2[4] * Make2[i] + beta2[5] * Insured2[i] +
+                    gamma2);
+  y2[i] ~ poisson(lambda2);
+}
+
+for (i in 1:N3) {
+  real lambda3 = exp(alpha3 + beta3[1] * Kilometres3[i] + beta3[2] * Zones3[i] +
+                    beta3[3] * Bonus3[i] + beta3[4] * Make3[i] + beta3[5] * Insured3[i] +
+                    gamma3);
+  y3[i] ~ poisson(lambda3);
+}
+
+for (i in 1:N4) {
+  real lambda4 = exp(alpha4 + beta4[1] * Kilometres4[i] + beta4[2] * Zones4[i] +
+                    beta4[3] * Bonus4[i] + beta4[4] * Make4[i] + beta4[5] * Insured4[i] +
+                    gamma4);
+  y4[i] ~ poisson(lambda4);
+}
+
+for (i in 1:N5) {
+  real lambda5 = exp(alpha5 + beta5[1] * Kilometres5[i] + beta5[2] * Zones5[i] +
+                    beta5[3] * Bonus5[i] + beta5[4] * Make5[i] + beta5[5] * Insured5[i] +
+                    gamma5);
+  y5[i] ~ poisson(lambda5);
+}
+
+for (i in 1:N6) {
+  real lambda6 = exp(alpha6 + beta6[1] * Kilometres6[i] + beta6[2] * Zones6[i] +
+                    beta6[3] * Bonus6[i] + beta6[4] * Make6[i] + beta6[5] * Insured6[i] +
+                    gamma6);
+  y6[i] ~ poisson(lambda6);
+}
+
+for (i in 1:N7) {
+  real lambda7 = exp(alpha7 + beta7[1] * Kilometres7[i] + beta7[2] * Zones7[i] +
+                    beta7[3] * Bonus7[i] + beta7[4] * Make7[i] + beta7[5] * Insured7[i] +
+                    gamma7);
+  y7[i] ~ poisson(lambda7);
+}
+  
+  
+}
+
+
+
+
+
+
+
+
+generated quantities {
+  // Posterior predictive checks for the main model
+  int y_pred1[N1];
+  int y_pred2[N2];
+  int y_pred3[N3];
+  int y_pred4[N4];
+  int y_pred5[N5];
+  int y_pred6[N6];
+  int y_pred7[N7];
+
+
+
+  for (i in 1:N1) {
+    y_pred1[i] = poisson_rng(exp(alpha1 + beta1[1] * Kilometres1[i] + beta1[2] * Zones1[i] +
+                    beta1[3] * Bonus1[i] + beta1[4] * Make1[i] + beta1[5] * Insured1[i] +
+                                gamma1));
+  }
+
+  for (i in 1:N2) {
+    y_pred2[i] = poisson_rng(exp(alpha2 + beta2[1] * Kilometres2[i] + beta2[2] * Zones2[i] +
+                                beta2[3] * Bonus2[i] + beta2[4] * Make2[i] + beta2[5] * Insured2[i] +
+                                gamma2));
+  }
+  
+  for (i in 1:N3) {
+    y_pred3[i] = poisson_rng(exp(alpha3 + beta3[1] * Kilometres3[i] + beta3[2] * Zones3[i] +
+                                beta3[3] * Bonus3[i] + beta3[4] * Make3[i] + beta3[5] * Insured3[i] +
+                                gamma3));
+  }
+
+  for (i in 1:N4) {
+    y_pred4[i] = poisson_rng(exp(alpha4 + beta4[1] * Kilometres4[i] + beta4[2] * Zones4[i] +
+                                beta4[3] * Bonus4[i] + beta4[4] * Make4[i] + beta4[5] * Insured4[i] +
+                                gamma4));
+  }
+
+  for (i in 1:N5) {
+    y_pred5[i] = poisson_rng(exp(alpha5 + beta5[1] * Kilometres5[i] + beta5[2] * Zones5[i] +
+                                beta5[3] * Bonus5[i] + beta5[4] * Make5[i] + beta5[5] * Insured5[i] +
+                                gamma5));
+  }
+  
+  for (i in 1:N6) {
+  y_pred6[i] = poisson_rng(exp(alpha6 + beta6[1] * Kilometres6[i] + beta6[2] * Zones6[i] +
+                                beta6[3] * Bonus6[i] + beta6[4] * Make6[i] + beta6[5] * Insured6[i] +
+                                gamma6));
+  }
+    
+  for (i in 1:N7) {
+  y_pred7[i] = poisson_rng(exp(alpha7 + beta7[1] * Kilometres7[i] + beta7[2] * Zones7[i] +
+                                beta7[3] * Bonus7[i] + beta7[4] * Make7[i] + beta7[5] * Insured7[i] +
+                                gamma7));
+  }
+  
+}
+
+'
+  
+  
+  
+#beta[1] = Kilometres
+#beta[2] = Zone
+#beta[3] = Bonus
+#beta[4] = Make
+#beta[5] = Insured
+
+  
+# Ensure Zones variables are numeric
+Zone1$Zone <- as.numeric(Zone1$Zone)
+Zone2$Zone <- as.numeric(Zone2$Zone)
+Zone3$Zone <- as.numeric(Zone3$Zone)
+Zone4$Zone <- as.numeric(Zone4$Zone)
+Zone5$Zone <- as.numeric(Zone5$Zone)
+Zone6$Zone <- as.numeric(Zone6$Zone)
+Zone7$Zone <- as.numeric(Zone7$Zone)
+
+
+  
+  
+Frequencies1 <- Zone1$Claims
+Frequencies2 <- Zone2$Claims
+Frequencies3 <- Zone3$Claims
+Frequencies4 <- Zone4$Claims
+Frequencies5 <- Zone5$Claims
+Frequencies6 <- Zone6$Claims
+Frequencies7 <- Zone7$Claims
+
+Kilometres1 <- Zone1$Kilometres
+Kilometres2 <- Zone2$Kilometres
+Kilometres3 <- Zone3$Kilometres
+Kilometres4 <- Zone4$Kilometres
+Kilometres5 <- Zone5$Kilometres
+Kilometres6 <- Zone6$Kilometres
+Kilometres7 <- Zone7$Kilometres
+
+Zones1 <- Zone1$Zone
+Zones2 <- Zone2$Zone
+Zones3 <- Zone3$Zone
+Zones4 <- Zone4$Zone
+Zones5 <- Zone5$Zone
+Zones6 <- Zone6$Zone
+Zones7 <- Zone7$Zone
+
+
+Bonus1 <- Zone1$Bonus
+Bonus2 <- Zone2$Bonus
+Bonus3 <- Zone3$Bonus
+Bonus4 <- Zone4$Bonus
+Bonus5 <- Zone5$Bonus
+Bonus6 <- Zone6$Bonus
+Bonus7 <- Zone7$Bonus
+
+
+Make1 <- Zone1$Make
+Make2 <- Zone2$Make
+Make3 <- Zone3$Make
+Make4 <- Zone4$Make
+Make5 <- Zone5$Make
+Make6 <- Zone6$Make
+Make7 <- Zone7$Make
+
+
+Insured1 <- Zone1$Insured
+Insured2 <- Zone2$Insured
+Insured3 <- Zone3$Insured
+Insured4 <- Zone4$Insured
+Insured5 <- Zone5$Insured
+Insured6 <- Zone6$Insured
+Insured7 <- Zone7$Insured
+
+
+# Compile the Stan model
+
+data_list <- list(
+  N1 = length(Frequencies1),
+  N2 = length(Frequencies2),
+  N3 = length(Frequencies3),
+  N4 = length(Frequencies4),
+  N5 = length(Frequencies5),
+  N6 = length(Frequencies6),
+  N7 = length(Frequencies7),
+  y1 = Frequencies1,
+  y2 = Frequencies2,
+  y3 = Frequencies3,
+  y4 = Frequencies4,
+  y5 = Frequencies5,
+  y6 = Frequencies6,
+  y7 = Frequencies7,
+  Kilometres1 = Kilometres1,
+  Kilometres2 = Kilometres2,
+  Kilometres3 = Kilometres3,
+  Kilometres4 = Kilometres4,
+  Kilometres5 = Kilometres5,
+  Kilometres6 = Kilometres6,
+  Kilometres7 = Kilometres7,
+  Zones1 = Zones1,
+  Zones2 = Zones2,
+  Zones3 = Zones3,
+  Zones4 = Zones4,
+  Zones5 = Zones5,
+  Zones6 = Zones6,
+  Zones7 = Zones7,
+  Bonus1 = Bonus1,
+  Bonus2 = Bonus2,
+  Bonus3 = Bonus3,
+  Bonus4 = Bonus4,
+  Bonus5 = Bonus5,
+  Bonus6 = Bonus6,
+  Bonus7 = Bonus7,
+  Make1 = Make1,
+  Make2 = Make2,
+  Make3 = Make3,
+  Make4 = Make4,
+  Make5 = Make5,
+  Make6 = Make6,
+  Make7 = Make7,
+  Insured1 = Insured1,
+  Insured2 = Insured2,
+  Insured3 = Insured3,
+  Insured4 = Insured4,
+  Insured5 = Insured5,
+  Insured6 = Insured6,
+  Insured7 = Insured7
+)
+
+
+
+# Define K (number of predictors)
+K <- 5  # You need to set this to the actual number of predictors in your model
+
+# Update the data_list with K
+data_list$K <- K
+
+# Compile the Stan model
+stan_model_2 <- stan_model(model_code = stan_code_2)
+
+# Run the sampling
+stan_fit_2 <- sampling(stan_model_2, data = data_list, chains = 2, warmup = 10000, iter = 20000)
+print(stan_fit_2)
+
+
+
+
+
+
+```
+
+# Try using different package brms...
+
+```{r}
+# Install and load the brms package
+#install.packages("brms")
+library(brms)
+
+
+
+# Ensure Zones variables are numeric
+Zone1$Zone <- as.numeric(Zone1$Zone)
+Zone2$Zone <- as.numeric(Zone2$Zone)
+Zone3$Zone <- as.numeric(Zone3$Zone)
+Zone4$Zone <- as.numeric(Zone4$Zone)
+Zone5$Zone <- as.numeric(Zone5$Zone)
+Zone6$Zone <- as.numeric(Zone6$Zone)
+Zone7$Zone <- as.numeric(Zone7$Zone)
+  
+  
+Frequencies1 <- Zone1$Claims
+Frequencies2 <- Zone2$Claims
+Frequencies3 <- Zone3$Claims
+Frequencies4 <- Zone4$Claims
+Frequencies5 <- Zone5$Claims
+Frequencies6 <- Zone6$Claims
+Frequencies7 <- Zone7$Claims
+
+Insured1 <- Zone1$Insured
+Insured2 <- Zone2$Insured
+Insured3 <- Zone3$Insured
+Insured4 <- Zone4$Insured
+Insured5 <- Zone5$Insured
+Insured6 <- Zone6$Insured
+Insured7 <- Zone7$Insured
+
+
+# Compile the Stan model
+
+data_list <- list(
+  N1 = length(Frequencies1),
+  N2 = length(Frequencies2),
+  N3 = length(Frequencies3),
+  N4 = length(Frequencies4),
+  N5 = length(Frequencies5),
+  N6 = length(Frequencies6),
+  N7 = length(Frequencies7),
+  y1 = Frequencies1,
+  y2 = Frequencies2,
+  y3 = Frequencies3,
+  y4 = Frequencies4,
+  y5 = Frequencies5,
+  y6 = Frequencies6,
+  y7 = Frequencies7,
+  Insured1 = Insured1,
+  Insured2 = Insured2,
+  Insured3 = Insured3,
+  Insured4 = Insured4,
+  Insured5 = Insured5,
+  Insured6 = Insured6,
+  Insured7 = Insured7
+)
+
+
+all_data <- rbind(
+  data.frame(Zone = Zone1$Zone, Insured = Zone1$Insured, Claims = Zone1$Claims),
+  data.frame(Zone = Zone2$Zone, Insured = Zone2$Insured, Claims = Zone2$Claims),
+  data.frame(Zone = Zone3$Zone, Insured = Zone3$Insured, Claims = Zone3$Claims),
+  data.frame(Zone = Zone4$Zone, Insured = Zone4$Insured, Claims = Zone4$Claims),
+  data.frame(Zone = Zone5$Zone, Insured = Zone5$Insured, Claims = Zone5$Claims),
+  data.frame(Zone = Zone6$Zone, Insured = Zone6$Insured, Claims = Zone6$Claims),
+  data.frame(Zone = Zone7$Zone, Insured = Zone7$Insured, Claims = Zone7$Claims)
+)
+
+# Ensure the 'Zone' variable is numeric
+all_data$Zone <- as.numeric(all_data$Zone)
+
+# Fit the Bayesian regression model
+brm_fit <- brm(Claims ~ Insured + (1|Zone), data = all_data, family = poisson(), chains = 2, iter = 3000 )
+
+# Print a summary of the model
+summary(brm_fit)
+
+
+
+
+
+```
+
+```{r}
+
+library(bayesplot)
+library(brms)
+
+
+# Trace plots
+mcmc_trace(brm_fit, regex_pars = c("Intercept", "Insured", "^Zone"))
+
+# Autocorrelation plots
+mcmc_autocorr(brm_fit, regex_pars = c("Intercept", "Insured", "^Zone"))
+
+
+
+```
+
+# Calculate MSE:
+
+```{r}
+
+
+#calcualte Bayesian
+
+
+
+
+#Calculate sample mean
+
+
+
+
+
+
+```
+
+# Posterior Predictive Check:
+
+```{r}
+
+
+
+library(bayesplot)
+
+# Extract simulated data from the stan_fit object
+yrep1 <- as.array(stan_fit, "y_rep1")
+yrep2 <- as.array(stan_fit, "y_rep2")
+yrep3 <- as.array(stan_fit, "y_rep3")
+yrep4 <- as.array(stan_fit, "y_rep4")
+yrep5 <- as.array(stan_fit, "y_rep5")
+yrep6 <- as.array(stan_fit, "y_rep6")
+yrep7 <- as.array(stan_fit, "y_rep7")
+
+Frequencies1
+Frequencies2
+Frequencies3
+Frequencies4
+Frequencies5
+Frequencies6
+Frequencies7
+
+yrep1fixed <- yrep1[1:6, 1,]
+ppc_hist(Frequencies1, yrep1fixed, binwidth = 50)
+ppc_dens_overlay(Frequencies1, yrep1fixed, binwidth = 50)
+
+```
+
+\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~
+
+\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~\~
+
+# Claim Severity Gamma Hierarchical Model:
+
+```{r}
+
+#claim severity follows a Gamma distribution which shape and scale parameters drawn from two other distributions
+
+#Stan code used to fit and find parameters for the hierarchical model:
+
+library(rstan)
+
+
+stan_code_2 <- '
+
+data {
+
+  int<lower=0> N1; //# observations in Zone 1
+  int<lower=0> N2; 
+  int<lower=0> N3; 
+  int<lower=0> N4; 
+  int<lower=0> N5; 
+  int<lower=0> N6; 
+  int<lower=0> N7; 
+  
+  real<lower=0> y1[N1]; //payments in Zone 1
+  real<lower=0> y2[N2]; 
+  real<lower=0> y3[N3]; 
+  real<lower=0> y4[N4]; 
+  real<lower=0> y5[N5]; 
+  real<lower=0> y6[N6]; 
+  real<lower=0> y7[N7]; 
+  
+  
+}
+
+
+
+parameters {
+
+  real<lower=0> theta; 
+  real<lower=0> tau;
+
+  real<lower=0> alpha1; //alpha parameter for Zone 1
+  real<lower=0> alpha2; // 
+  real<lower=0> alpha3; 
+  real<lower=0> alpha4; 
+  real<lower=0> alpha5; 
+  real<lower=0> alpha6; 
+  real<lower=0> alpha7; 
+  
+  real<lower=0> beta;  //shared rate for gamma distribution
+
+  
+}
+
+
+model {
+
+
+  //priors
+  theta ~ uniform(.9, 1.1); // 
+  tau ~ uniform(1,2);  // 
+  
+  
+  beta ~ uniform(.0000005,.00005);
+  
+
+  //hierarchical model
+
+  alpha1 ~ gamma(theta,tau);
+  alpha2 ~ gamma(theta,tau);
+  alpha3 ~ gamma(theta,tau);
+  alpha4 ~ gamma(theta,tau);
+  alpha5 ~ gamma(theta,tau);
+  alpha6 ~ gamma(theta,tau);
+  alpha7 ~ gamma(theta,tau);
+  
+  
+  //likelihoods
+  y1 ~ gamma(alpha1, beta);
+  y2 ~ gamma(alpha2, beta);
+  y3 ~ gamma(alpha3, beta);
+  y4 ~ gamma(alpha4, beta);
+  y5 ~ gamma(alpha5, beta);
+  y6 ~ gamma(alpha6, beta);
+  y7 ~ gamma(alpha7, beta);
+  
+}
+
+
+'
+  
+  
+  
+Payment1 <- Zone1$Payment
+Payment2 <- Zone2$Payment
+Payment3 <- Zone3$Payment
+Payment4 <- Zone4$Payment
+Payment5 <- Zone5$Payment
+Payment6 <- Zone6$Payment
+Payment7 <- Zone7$Payment
+
+
+  
+
+stan_model_2 <- stan_model(model_code = stan_code_2)
+
+data_list_2 <- list(
+
+  N1 = length(Payment1),
+  y1 = Payment1,
+  N2 = length(Payment2),
+  y2 = Payment2,
+  N3 = length(Payment3),
+  y3 = Payment3,
+  N4 = length(Payment4),
+  y4 = Payment4,
+  N5 = length(Payment5),
+  y5 = Payment5,
+  N6 = length(Payment6),
+  y6 = Payment6,
+  N7 = length(Payment7),
+  y7 = Payment7
+)
+
+
+# Set wider initial values for parameters for each chain
+init_values <- list(
+  list(theta = 1, tau = 1, alpha1 = 1, alpha2 = 1, alpha3 = 1, alpha4 = 1, alpha5 = 1, alpha6 = 1, alpha7 = 1, beta = 0.000001),
+  list(theta = 1, tau = 1, alpha1 = 1, alpha2 = 1, alpha3 = 1, alpha4 = 1, alpha5 = 1, alpha6 = 1, alpha7 = 1, beta = 0.000001),
+  list(theta = 1, tau = 1, alpha1 = 1, alpha2 = 1, alpha3 = 1, alpha4 = 1, alpha5 = 1, alpha6 = 1, alpha7 = 1, beta = 0.000001),
+  list(theta = 1, tau = 1, alpha1 = 1, alpha2 = 1, alpha3 = 1, alpha4 = 1, alpha5 = 1, alpha6 = 1, alpha7 = 1, beta = 0.000001)
+)
+
+# Run the sampling with specified initial values
+stan_fit_2 <- sampling(stan_model_2, data = data_list_2, chains = 4, iter = 20000, warmup = 10000, init = init_values)
+
+# Print the results
+print(stan_fit_2)
+
+
+
+```
+
+```{r}
+
+
+library(rstan)
+
+plot(stan_fit)
+traceplot(stan_fit)
+summary(stan_fit)
+
+
+library(bayesplot)
+autocorrelation_plot <- mcmc_acf(stan_fit)
+print(autocorrelation_plot)
+
+
+```
+
+# Gamma Regression Model for Claim Severity:
+
+Stan Code:
+
+```{r}
+
+library(rstan)
+
+
+Zone3
+
+
+stan_code <- "
+data {
+  int<lower=0> N;          // Number of observations
+  int<lower=0> p;          // Number of predictors
+  vector[N] Z;             // Claim severity data
+  matrix[N, p] X;          // Design matrix
+}
+
+parameters {
+  real alpha;              // Intercept
+  vector[p] beta;          // Coefficients for predictors
+  real<lower=0> nu;         // Shape parameter of the gamma distribution
+  vector<lower=0>[p] kappa; // Shape parameter for the Inverse Gamma prior on nu
+}
+
+model {
+  vector[N] mu;            // Mean parameter
+  
+  
+  // Log-likelihood of Inverse Gamma prior for nu
+  //nu ~ inv_gamma(0.001, 0.001);
+  
+  // Non-informative uniform priors on regression coefficients
+  alpha ~ uniform(-10, 10); 
+  beta ~ uniform(-10, 10);  
+  
+  // Prior on the shape parameter for each coefficient
+  for (i in 1:p) {
+  kappa[i] ~ inv_gamma(0.001, 0.001);
+  }
+  
+  
+  // Gamma likelihood
+  Z ~ gamma(nu, exp(alpha + dot_product(X, beta)) / nu);
+  
+  
+  
+}
+  
+
+generated quantities {
+  vector[N] y_pred;
+  
+  for (i in 1:N)
+    y_pred[i] = gamma_rng(nu, exp(alpha + X[i] * beta) / nu);
+}
+"
+  
+
+
+#Data
+set.seed(123)
+data <- list(N = 315,
+             p = 4,
+             Z = Zone3$Payment,
+             X = cbind(Zone3$Kilometres, Zone3$Bonus, Zone3$Make, Zone3$Insured))
+
+
+# Compile the Stan model
+stan_model <- stan_model(model_code = stan_code)
+
+
+## Specify different initial values
+init_values <- list(
+  list(alpha = 0.1, beta = rep(0.1, data$p), nu = 2, kappa = rep(0.1, data$p)),
+  list(alpha = -0.5, beta = rep(-0.5, data$p), nu = 1, kappa = rep(0.1, data$p)),
+  
+)
+
+
+# Fit the model using MCMC
+fit <- sampling(stan_model, data = data, chains = 4, iter = 2000, warmup = 1000)
+
+# Display summary of the fitted model
+print(fit)
+
+
+
+
+```
+
+# Claim Severity OLS Frequentist Model:
+
+# Test for claim frequency with brms package:
+
+```{r}
+
+library(bpr)
+library(lme4)
+library(coda)
+library(brms)
+library(ggplot2)
+library(bayesplot)
+
+
+# Ensure Zones variable is numeric
+Swedish$Zone <- as.numeric(Swedish$Zone)
+
+# Fit the Poisson hierarchical regression model with brms
+model <- brm(Claims ~ Insured + (1 | Zone), data = Swedish, family = poisson(), chains = 3, iter = 1000)
+
+
+# Extract posterior samples
+samples <- posterior_samples(model)
+
+# Trace plot
+mcmc_trace(samples)
+
+# Autocorrelation plot
+mcmc_acf(samples)
+
+
+
+```
